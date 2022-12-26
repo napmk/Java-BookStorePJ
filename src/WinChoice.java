@@ -7,9 +7,9 @@ import java.awt.BorderLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class WinPublisher extends JDialog {
+public class WinChoice extends JDialog {
 	private String strPublisher;
-	public WinPublisher(Vector v) {
+	public WinChoice(Vector v) {
 		setTitle("출판사 선택");
 		setBounds(100, 100, 220, 262);
 		

@@ -48,15 +48,7 @@ public class WinBookInsert extends JDialog {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		try {
-			WinBookInsert dialog = new WinBookInsert();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+
 
 	/**
 	 * Create the dialog.
@@ -138,11 +130,11 @@ public class WinBookInsert extends JDialog {
 						if(cnt == 1)
 							tfPublisher.setText(v.get(0));
 						else {
-							WinPublisher winPublisher = new WinPublisher(v);
-							winPublisher.setModal(true);
-							winPublisher.setVisible(true);
+							WinChoice winChoice = new WinChoice(v);
+							winChoice.setModal(true);
+							winChoice.setVisible(true);
 							
-							tfPublisher.setText(winPublisher.getPublisher());
+							tfPublisher.setText(winChoice.getPublisher());
 							tfpDate.requestFocus();
 						}
 					} catch (ClassNotFoundException | SQLException e1) {

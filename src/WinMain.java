@@ -40,20 +40,11 @@ public class WinMain extends JDialog {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		try {
-			WinMain dialog = new WinMain();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
 	/**
 	 * Create the dialog.
 	 */
-	public WinMain() {
+	public WinMain(DefaultTableModel dtm) {
 		setTitle("도서대여점 version 1.0");
 		setBounds(100, 100, 1039, 683);
 		getContentPane().setLayout(new BorderLayout());
@@ -62,19 +53,49 @@ public class WinMain extends JDialog {
 		getContentPane().add(toolBar, BorderLayout.NORTH);
 		
 		JButton btnInsert = new JButton("");
-		btnInsert.setIcon(new ImageIcon("C:\\javawork\\BookStorePJ\\images\\bookinsert.png"));
+		btnInsert.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				WinBookInsert winBookInsert = new WinBookInsert();
+				winBookInsert.setModal(true);
+				winBookInsert.setVisible(true);
+			}
+		});
+		btnInsert.setIcon(new ImageIcon(WinMain.class.getResource("/images/bookinsert.png")));
 		toolBar.add(btnInsert);
 		
 		JButton btnDelete = new JButton("");
-		btnDelete.setIcon(new ImageIcon("C:\\javawork\\BookStorePJ\\images\\bookdelete.png"));
+		btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				WinBookDelete winBookDelete = new WinBookDelete();
+				winBookDelete.setModal(true);
+				winBookDelete.setVisible(true);
+			}
+		});
+		btnDelete.setIcon(new ImageIcon(WinMain.class.getResource("/images/bookdelete.png")));
 		toolBar.add(btnDelete);
 		
 		JButton btnUpdate = new JButton("");
-		btnUpdate.setIcon(new ImageIcon("C:\\javawork\\BookStorePJ\\images\\bookselect.png"));
+		btnUpdate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				WinBookUpdate winBookUpdate = new WinBookUpdate();
+				winBookUpdate.setModal(true);
+				winBookUpdate.setVisible(true);
+			
+			}
+		});
+		btnUpdate.setIcon(new ImageIcon(WinMain.class.getResource("/images/bookupdate.png")));
 		toolBar.add(btnUpdate);
 		
 		JButton btnSelect = new JButton("");
-		btnSelect.setIcon(new ImageIcon("C:\\javawork\\BookStorePJ\\images\\booksearch.png"));
+		btnSelect.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				WinShowAllBooks winShowAllBooks = new WinShowAllBooks();
+				winShowAllBooks.setModal(true);
+				winShowAllBooks.setVisible(true);
+				
+			}
+		});
+		btnSelect.setIcon(new ImageIcon(WinMain.class.getResource("/images/booksearch.png")));
 		toolBar.add(btnSelect);
 		
 		
@@ -86,8 +107,8 @@ public class WinMain extends JDialog {
 		JScrollPane scrollPane = new JScrollPane();
 		getContentPane().add(scrollPane, BorderLayout.CENTER);
 		
-		String columnNames[]= {"번호","ISBN","책 제목","저자","출판사","가격"};
-		DefaultTableModel dtm = new DefaultTableModel(columnNames,0);
+	//	String columnNames[]= {"번호","ISBN","책 제목","저자","출판사","가격"};
+	//	DefaultTableModel dtm = new DefaultTableModel(columnNames,0);
 		table = new JTable(dtm);
 		
 		JPanel panel = new JPanel();
@@ -140,7 +161,7 @@ public class WinMain extends JDialog {
 			menuBar.add(mnuFile);
 			
 			JMenuItem mnuExit = new JMenuItem("Exit");
-			mnuExit.setIcon(new ImageIcon("C:\\javawork\\BookStorePJ\\images\\exit.png"));
+			mnuExit.setIcon(new ImageIcon("/images/exit.png"));
 			mnuExit.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					System.exit(DISPOSE_ON_CLOSE);
@@ -151,7 +172,7 @@ public class WinMain extends JDialog {
 			
 			JMenuItem mntmNewMenuItem = new JMenuItem("Print...");
 			mntmNewMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.CTRL_DOWN_MASK));
-			mntmNewMenuItem.setIcon(new ImageIcon("C:\\javawork\\BookStorePJ\\images\\print1.png"));
+			mntmNewMenuItem.setIcon(new ImageIcon("/images/print1.png"));
 			mnuFile.add(mntmNewMenuItem);
 			mnuExit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.ALT_DOWN_MASK));
 			
@@ -162,24 +183,89 @@ public class WinMain extends JDialog {
 			menuBar.add(mnuBook);
 			
 			JMenuItem mnuBookInsert = new JMenuItem("도서 등록...");
-			mnuBookInsert.setIcon(new ImageIcon("C:\\javawork\\BookStorePJ\\images\\bookinsert.png"));
+			mnuBookInsert.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					WinBookInsert winBookInsert = new WinBookInsert();
+					winBookInsert.setModal(true);
+					winBookInsert.setVisible(true);
+				}
+			});
+			mnuBookInsert.setIcon(new ImageIcon(WinMain.class.getResource("/images/bookinsert.png")));
 			mnuBookInsert.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, InputEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK));
 			mnuBook.add(mnuBookInsert);
 			
 			JMenuItem mnuBookUpdate = new JMenuItem("도서 변경...");
-			mnuBookUpdate.setIcon(new ImageIcon("C:\\javawork\\BookStorePJ\\images\\bookselect.png"));
+			mnuBookUpdate.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					WinBookUpdate winBookUpdate = new WinBookUpdate();
+					winBookUpdate.setModal(true);
+					winBookUpdate.setVisible(true);
+				}
+			});
+			mnuBookUpdate.setIcon(new ImageIcon(WinMain.class.getResource("/images/bookupdate.png")));
 			mnuBookUpdate.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_U, InputEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK));
 			mnuBook.add(mnuBookUpdate);
 			
 			JMenuItem mnuBookDelete = new JMenuItem("도서 삭제...");
-			mnuBookDelete.setIcon(new ImageIcon("C:\\javawork\\BookStorePJ\\images\\bookdelete.png"));
+			mnuBookDelete.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					WinBookDelete winBookDelete = new WinBookDelete();
+					winBookDelete.setModal(true);
+					winBookDelete.setVisible(true);
+					
+				}
+			});
+			mnuBookDelete.setIcon(new ImageIcon(WinMain.class.getResource("/images/bookdelete.png")));
 			mnuBookDelete.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, InputEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK));
 			mnuBook.add(mnuBookDelete);
 			
-			JMenuItem mnuBookSelect = new JMenuItem("도서 조회...");
-			mnuBookSelect.setIcon(new ImageIcon("C:\\javawork\\BookStorePJ\\images\\booksearch.png"));
+			JMenuItem mnuBookSelect = new JMenuItem("\uC804\uCCB4 \uB3C4\uC11C \uC870\uD68C...");
+			mnuBookSelect.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					WinShowAllBooks winShowAllBooks = new WinShowAllBooks();
+					winShowAllBooks.setModal(true);
+					winShowAllBooks.setVisible(true);
+				}
+			});
+			mnuBookSelect.setIcon(new ImageIcon(WinMain.class.getResource("/images/booksearch.png")));
 			mnuBookSelect.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK));
 			mnuBook.add(mnuBookSelect);
+			
+			JMenu mnuMember = new JMenu("회원관리");
+			menuBar.add(mnuMember);
+			
+			JMenuItem mnuMemberInsert = new JMenuItem("회원 가입...");
+			mnuMemberInsert.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					WinMemberManager winMemberManager = new WinMemberManager(1);
+					winMemberManager.setModal(true);
+					winMemberManager.setVisible(true);
+				}
+			});
+			mnuMember.add(mnuMemberInsert);
+			
+			JMenuItem mnuMemberUpdate = new JMenuItem("회원 변경...");
+			mnuMemberUpdate.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					WinMemberManager winMemberManager = new WinMemberManager(2);
+					winMemberManager.setModal(true);
+					winMemberManager.setVisible(true);
+				}
+			});
+			mnuMember.add(mnuMemberUpdate);
+			
+			JMenuItem mnuMemberDelete = new JMenuItem("회원 삭제...");
+			mnuMemberDelete.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					WinMemberManager winMemberManager = new WinMemberManager(3);
+					winMemberManager.setModal(true);
+					winMemberManager.setVisible(true);
+				}
+			});
+			mnuMember.add(mnuMemberDelete);
+			
+			JMenuItem mnuMemberSelete = new JMenuItem("회원 조회...");
+			mnuMember.add(mnuMemberSelete);
 		}
 	}
 
@@ -223,7 +309,6 @@ public class WinMain extends JDialog {
 	
 	 
 	private void ShowAllBooks() {
-		//DB 연동 sql 붙이기
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection con = 
@@ -232,20 +317,19 @@ public class WinMain extends JDialog {
 							"root",
 							"12345");
 			Statement stmt = con.createStatement();			
-			String sql = "";
-			sql = "SELECT * FROM bookTBL";
-			ResultSet rs = stmt.executeQuery(sql);
+			String sql = "SELECT * FROM booktbl";
+			ResultSet rs = stmt.executeQuery(sql);			
 			DefaultTableModel dtm = (DefaultTableModel)table.getModel();
 			dtm.setRowCount(0);
 			int cnt=0;
 			while(rs.next()) {
 				String record[] = new String[6];
 				record[0] = Integer.toString(++cnt);
-				record[1] = rs.getString(1);
-				record[2] = rs.getString(2);
-				record[3] = rs.getString(3);
-				record[4] = rs.getString(4);
-				record[5] = rs.getString(7);
+				record[1] = rs.getString("ISBN");
+				record[2] = rs.getString("Title");
+				record[3] = rs.getString("Author");
+				record[4] = rs.getString("Publisher");
+				record[5] = rs.getString("Price");
 				dtm.addRow(record);
 			}
 											
